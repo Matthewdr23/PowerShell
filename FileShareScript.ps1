@@ -1,3 +1,7 @@
+'''
+Purpose: 
+'''
+
 import-module ActiveDirectory
 import-module ImportExcel
 $Path = Read-Host "Please state the directory that you wish to get the ACL for "
@@ -19,7 +23,8 @@ ForEach ($Folder in $FolderPath) {
     ForEach ($Access in $Acl.Access) {
         if ($Access.IsInherited -eq $false) {
             $username = $Access.IdentityReference
-            $Username_Only = $username -replace 'EVERESTRE\\',''
+            #Change the CompanyPrefix\\ to Company Prefix that is before the username
+            $Username_Only = $username -replace 'CompanyPrefix\\',''
             $UserID = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties EmployeeNumber | Select-Object EmployeeNumber
             $UserDep = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties Department | Select-Object Department
             #$UserGroup = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties Group | Select-Object Group            #Write-Host $UserID
@@ -36,7 +41,7 @@ ForEach ($Folder in $FolderPath) {
 foreach ($Access in $RootFolder.Access){
     If($Access.IsInherited -eq $False){
         $username = $Access.IdentityReference
-        $Username_Only = $username -replace 'EVERESTRE\\',''
+        $Username_Only = $username -replace 'CompanyPrefix\\',''
         $UserID = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties EmployeeNumber | Select-Object EmployeeNumber
         $UserDep = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties Department | Select-Object Department
         $EmployeeNumber = $UserID.EmployeeNumber
