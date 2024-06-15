@@ -3,7 +3,7 @@
 Import-Module ActiveDirectory
 Import-Module ImportExcel
 
-$FileName = Read-Host "Enter the File Name"#'SHERPA GroupMembers.xlsx'
+$FileName = Read-Host "Enter the File Name"
 $ExportFile = Read-Host "What is the name of the File"
 $ExportFileName = $ExportFile+".xlsx"
 $Users = Import-Excel -Path $FileName | Select-Object -Property Group, UserID
