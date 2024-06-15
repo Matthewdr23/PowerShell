@@ -31,7 +31,7 @@ foreach($Path in $Inputlist)
             if ($Access.IsInherited -eq $false) 
             {
                 $username = $Access.IdentityReference
-                $Username_Only = $username -replace 'EVERESTRE\\',''
+                $Username_Only = $username -replace 'CompanyPrefix\\',''
                 if(($username -like "*NT AUTHORITY*") -or ($username -like "*BUILTIN*"))
                 {
                     $Properties = [ordered]@{
@@ -75,8 +75,8 @@ foreach($Path in $Inputlist)
                     $GroupMembers = get-adgroupmember $Username_Only | select -ExpandProperty SAMAccountName
                     foreach($nesteduser in $GroupMembers)
                     {
-                        $username = "EVERESTRE\$nesteduser"
-                        $Username_Only = $username -replace 'EVERESTRE\\',''
+                        $username = "CompanyPrefix\$nesteduser"
+                        $Username_Only = $username -replace 'CompanyPrefix\\',''
                         $UserID = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties EmployeeNumber | Select-Object EmployeeNumber
                         $Manager = Get-ADUser -Identity $Username_Only -Properties * | Select-Object -ExpandProperty Manager | ForEach-Object {
                             if ($_ -match 'CN=(.+?),') 
@@ -107,7 +107,7 @@ foreach($Path in $Inputlist)
         If($Access.IsInherited -eq $False)
         {
             $username = $Access.IdentityReference
-            $Username_Only = $username -replace 'EVERESTRE\\',''
+            $Username_Only = $username -replace 'CompanyPrefix\\',''
             if(($username -like "*NT AUTHORITY*") -or ($username -like "*BUILTIN*"))
                 {
                     $Properties = [ordered]@{
@@ -151,8 +151,8 @@ foreach($Path in $Inputlist)
                 $GroupMembers = get-adgroupmember $Username_Only | select -ExpandProperty SAMAccountName
                 foreach($nesteduser in $GroupMembers)
                 {
-                    $username = "EVERESTRE\$nesteduser"
-                    $Username_Only = $username -replace 'EVERESTRE\\',''
+                    $username = "CompanyPrefix\$nesteduser"
+                    $Username_Only = $username -replace 'CompanyPrefix\\',''
                     $UserID = Get-ADUser -Filter {SamAccountName -eq $Username_Only} -Properties EmployeeNumber | Select-Object EmployeeNumber
                     $Manager =Get-ADUser -Identity $Username_Only -Properties * | Select-Object -ExpandProperty Manager | ForEach-Object {
                         if ($_ -match 'CN=(.+?),') 
