@@ -1,8 +1,16 @@
+'''
+The Purpose of this script is use a list created and go through AD to produce a large list of email accounts to reduce the hassle of 
+trying to search up everyone to add to an email. 
+NOTE: This scritp was created with Manual Recertifications in mind. If you are not in the field then this script can help in other ways but the 
+direct purpose is for manual recertifications. 
+'''
+
 # Import the ActiveDirectory module
 import-module ActiveDirectory
 
 # Specify the path to your text file containing full names
-$filePath = "C:\Users\mvelez\OneDrive - Everest Reinsurance\Desktop\Scripts\PowerShell Scripts\PEAKLIST.txt"
+
+$filePath = #"Add File Path Here"
 
 # Read full names from the file
 $fullNames = Get-Content -Path $filePath
